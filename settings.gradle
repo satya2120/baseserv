@@ -1,0 +1,15 @@
+rootProject.name = 'baseserv'
+def apiProjectName = 'api'
+def serviceProjectName = 'service'
+
+include ':' + apiProjectName
+include ':' + serviceProjectName
+
+gradle.ext.rpmroot = '/opt/' + rootProject.name + '/'
+gradle.ext.rpmbin = gradle.ext.rpmroot + 'bin'
+gradle.ext.rpmcmd = 'java -jar test.jar server '
+gradle.ext.rpmuser = rootProject.name
+
+rootProject.children.each { subproj ->
+    subproj.name = "${subproj.parent.name}-${subproj.name}"
+}

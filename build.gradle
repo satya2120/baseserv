@@ -1,0 +1,88 @@
+buildscript {
+    repositories {
+        jcenter()
+
+    }
+    dependencies {
+        classpath 'com.netflix.nebula:gradle-ospackage-plugin:4.8.0'
+    }
+}
+
+allprojects {
+    apply plugin: 'maven'
+    apply plugin: 'java'
+    apply plugin: 'nebula.ospackage'
+
+    group = 'com.baseserv'
+    version = '1.0.1-SNAPSHOT'
+}
+
+subprojects {
+    apply plugin: 'java'
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+    repositories {
+        jcenter()
+    }
+}
+
+task scriptTemplates(type: Copy) {
+    from 'scripts/templates'
+    into "scripts/"
+    include 'initfile.template'
+    rename { file -> 'initfile' }
+    expand(dir: gradle.ext.rpmbin, startcommand: gradle.ext.rpmcmd, generated: new Date(), user: gradle.ext.rpmuser)
+}
+
+ospackage {
+    release = '1'
+    arch = I386
+    os = LINUX
+
+    installUtils file('scripts/rpm/utils.sh')
+    preInstall file('scripts/rpm/preInstall.sh')
+    postInstall file('scripts/rpm/postInstall.sh')
+    preUninstall 'touch /tmp/myfile'
+    postUninstall file('scripts/rpm/postUninstall.sh')
+
+    into '/opt/' + rootProject.name + '/'
+
+    from(jar.outputs.files) {
+        into 'lib'
+    }
+    from(configurations.runtime) {
+        into 'lib'
+    }
+    from('lib') {
+        into 'lib'
+    }
+    from('scripts') {
+        into 'bin'
+        exclude 'templates/'
+        fileMode = 0550
+    }
+    from('src/main/resources') {
+        fileType CONFIG | NOREPLACE
+        into 'conf'
+    }
+    from(rootProject.name + 'Service') {
+        into 'conf'
+        include '*.yml'
+    }
+
+}
+
+buildRpm {
+    dependsOn 'scriptTemplates'
+    link('/etc/init.d/' + rootProject.name, '/opt/' + rootProject.name + '/bin/initfile')
+}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            pom.version = version
+            pom.artifactId = rootProject.name
+            pom.groupId = 'com.baseserv'
+        }
+    }
+}

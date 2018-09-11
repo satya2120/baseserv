@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/baseserv.iml" filepath="$PROJECT_DIR$/baseserv.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/api/baseserv-api.iml" filepath="$PROJECT_DIR$/.idea/modules/api/baseserv-api.iml" group="baseserv-api" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/api/baseserv-api_main.iml" filepath="$PROJECT_DIR$/.idea/modules/api/baseserv-api_main.iml" group="baseserv-api" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/api/baseserv-api_test.iml" filepath="$PROJECT_DIR$/.idea/modules/api/baseserv-api_test.iml" group="baseserv-api" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/service/baseserv-service.iml" filepath="$PROJECT_DIR$/.idea/modules/service/baseserv-service.iml" group="baseserv-service" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/service/baseserv-service_main.iml" filepath="$PROJECT_DIR$/.idea/modules/service/baseserv-service_main.iml" group="baseserv-service" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/service/baseserv-service_test.iml" filepath="$PROJECT_DIR$/.idea/modules/service/baseserv-service_test.iml" group="baseserv-service" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/baseserv_main.iml" filepath="$PROJECT_DIR$/.idea/modules/baseserv_main.iml" group="baseserv" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/baseserv_test.iml" filepath="$PROJECT_DIR$/.idea/modules/baseserv_test.iml" group="baseserv" />
+    </modules>
+  </component>
+</project>
